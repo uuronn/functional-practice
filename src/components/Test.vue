@@ -1,9 +1,13 @@
 <template>
   <div>
-    <span class="test"></span>
+    <button class="han" @click="hanClick">
+      <span class="han__style" :class="hanStyle"></span>
+      <span class="han__style" :class="hanStyle"></span>
+      <span class="han__style" :class="hanStyle"></span>
+    </button>
+    <div class="test"></div>
     <button class="button" @click="test" :class="classColorSet">
       <span class="button__style" :class="classStyle"></span>
-      
     </button>
   </div>
 </template>
@@ -12,6 +16,7 @@
 export default {
   data() {
     return {
+      isHan: false,
       isActive: false,
       isShow: false
     }
@@ -20,6 +25,9 @@ export default {
     test() {
       this.isActive = !this.isActive
       this.isShow = !this.isShow
+    },
+    hanClick() {
+      this.isHan = !this.isHan
     }
   },
   computed: {
@@ -33,43 +41,45 @@ export default {
       return {
         styletop: this.isShow
       }
+    },
+    hanStyle() {
+      return {
+        blue: this.isHan
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.button {
+.han {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
   width: 300px;
   height: 300px;
   background: #eee;
 }
 
-.button__style {
-  margin: 0 auto;
-  display: block;
-  width: 100px;
-  height: 10px;
+.han__style {
+  margin: 30px 0;
+  width: 200px;
+  height: 8px;
   background: #000;
 }
 
-.styletop {
-  transform: rotate(45deg);
-  transform-origin: top left;
+.blue {
+  background: blue;
+  animation-name: hanAnimation;
+  animation-duration: 1s;
 }
 
-.test {
-  position: absolute;
-  margin: 400px;
-  display: block;
-  width: 300px;
-  height: 10px;
-  background: red;
+@keyframes hanAnimation {
+  100% {
+    transform-origin: left top;
+    transform: rotate(45deg);
+  }
 }
 
-.test:hover {
-  transform: rotate(45deg);
-  transform-origin: top left;
-  transition: 1s;
-}
 </style>

@@ -1,33 +1,25 @@
 <template>
   <div>
-    <div id="dispArea" class="guideArea">
-      <p id="guide">後からデザインを変更可能です</p>
-      <input type="text" id="textBox" value="こんにちは">
-    </div>
-
-    <button @click="test">test</button>
-    <button type="button" @click="cssTest()" :class="classColorSet">CSS変更</button>
+    <span class="test"></span>
+    <button class="button" @click="test" :class="classColorSet">
+      <span class="button__style" :class="classStyle"></span>
+      
+    </button>
   </div>
 </template>
 
 <script>
-
 export default {
-  el: '#dispArea',
   data() {
     return {
-      isActive: true
+      isActive: false,
+      isShow: false
     }
   },
   methods: {
     test() {
       this.isActive = !this.isActive
-    },
-    cssTest() {
-      // javascriptでdiv領域にCSSを付与
-      document.getElementById("dispArea").classList.add("addColor");
-      // jQueryでテキストボックスにCSSを付与
-      // $("#textBox").css( { 'font-size' : '18px' , 'color' : 'red' });
+      this.isShow = !this.isShow
     }
   },
   computed: {
@@ -36,29 +28,48 @@ export default {
         red: this.isActive,
         yellow: !this.isActive
       }
+    },
+    classStyle() {
+      return {
+        styletop: this.isShow
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-/* 静的付与済み */
-.guideArea {
-  margin-bottom: 10px;
-  padding: 5px;
-  border: solid 2px;
+.button {
   width: 300px;
-}
-/* 背景色を付与 */
-.addColor {
-  background-color: #d5ecce ;
+  height: 300px;
+  background: #eee;
 }
 
-.red {
-  color: red;
+.button__style {
+  margin: 0 auto;
+  display: block;
+  width: 100px;
+  height: 10px;
+  background: #000;
 }
 
-.yellow {
-  background: yellow;
+.styletop {
+  transform: rotate(45deg);
+  transform-origin: top left;
+}
+
+.test {
+  position: absolute;
+  margin: 400px;
+  display: block;
+  width: 300px;
+  height: 10px;
+  background: red;
+}
+
+.test:hover {
+  transform: rotate(45deg);
+  transform-origin: top left;
+  transition: 1s;
 }
 </style>

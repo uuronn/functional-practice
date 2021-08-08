@@ -1,13 +1,9 @@
 <template>
   <div>
     <button class="han" @click="hanClick">
-      <span class="han__style" :class="hanStyle"></span>
-      <span class="han__style" :class="hanStyle"></span>
-      <span class="han__style" :class="hanStyle"></span>
-    </button>
-    <div class="test"></div>
-    <button class="button" @click="test" :class="classColorSet">
-      <span class="button__style" :class="classStyle"></span>
+      <span class="han__style" :class="topLine"></span>
+      <span class="han__style" :class="centerLine" v-show="centerShow"></span>
+      <span class="han__style" :class="bottomLine"></span>
     </button>
   </div>
 </template>
@@ -16,35 +12,34 @@
 export default {
   data() {
     return {
-      isHan: false,
-      isActive: false,
-      isShow: false
+      topStyle: false,
+      centerStyle: false,
+      bottomStyle: false,
+      centerShow: true
     }
   },
   methods: {
-    test() {
-      this.isActive = !this.isActive
-      this.isShow = !this.isShow
-    },
     hanClick() {
-      this.isHan = !this.isHan
+      this.topStyle = !this.topStyle
+      this.centerStyle = !this.centerStyle
+      this.bottomStyle = !this.bottomStyle
+      this.centerShow = !this.centerShow
     }
   },
   computed: {
-    classColorSet() {
+    topLine() {
       return {
-        red: this.isActive,
-        yellow: !this.isActive
+        top: this.topStyle
       }
     },
-    classStyle() {
+    centerLine() {
       return {
-        styletop: this.isShow
+        center: this.centerStyle
       }
     },
-    hanStyle() {
+    bottomLine() {
       return {
-        blue: this.isHan
+        bottom: this.bottomStyle
       }
     }
   }
@@ -69,16 +64,44 @@ export default {
   background: #000;
 }
 
-.blue {
-  background: blue;
-  animation-name: hanAnimation;
+.top {
+  animation-name: topAnimation;
+  animation-fill-mode: forwards;
   animation-duration: 1s;
 }
 
-@keyframes hanAnimation {
+@keyframes topAnimation {
   100% {
+    margin: 70px 0;
     transform-origin: left top;
     transform: rotate(45deg);
+  }
+}
+
+.center {
+  display: block;
+  animation-name: centerAnimation;
+  animation-fill-mode: forwards;
+}
+
+@keyframes centerAnimation {
+  100% {
+    display: none;
+    background: red;
+  }
+}
+
+.bottom {
+  animation-name: bottomAnimation;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes bottomAnimation {
+  100% {
+    margin: 70px 0;
+    transform-origin: left top;
+    transform: rotate(-45deg);
   }
 }
 
